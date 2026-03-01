@@ -1,13 +1,13 @@
 obj-m += panik.o
 KERN ?= $(shell uname -r)
 
-all: panikctl
-panikctl: panik.ko
-	echo '#!/bin/sh' > panikctl
-	@echo '' >> panikctl
-	echo 'PANIK_B64="'"$$(base64 -w0 panik.ko)"'"' >> panikctl
-	awk 'NR==FNR{b=$$0; next} {gsub(/<\[panikctl\]>/, b); print}' <(echo "$$PANIK_B64") panikctl.sh >> panikctl
-	chmod +x panikctl
+all: panik
+panik: panik.ko
+	echo '#!/bin/sh' > panik
+	@echo '' >> panik
+	echo 'PANIK_B64="'"$$(base64 -w0 panik.ko)"'"' >> panik
+	cat panik.sh>panik
+	chmod +x panik
 panik.ko: git.h
 	@if [ -z "$(KERN)" ]; then \
 		echo "please set the KERN environment variable" >&2; \
