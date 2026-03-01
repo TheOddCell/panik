@@ -16,5 +16,7 @@ testimveryverysureiwanttocrashthekernelimverysurethatiwanttodothisokbye: all
 	insmod ./panik.ko
 clean:
 	@rm ..module-common.o.cmd .module-common.o .Module.symvers.cmd .modules.order.cmd .panik.ko.cmd .panik.mod.cmd .panik.mod.o.cmd .panik.o.cmd Module.symvers modules.order panik.ko panik.mod.c panik.o panik.mod panik.mod.o git.h 2>/dev/null | true
-
-.PHONY: all testimveryverysureiwanttocrashthekernelimverysurethatiwanttodothisokbye git.h
+install:
+	install -D -m 644 panik.ko /lib/modules/$(KERN)/extra/panik.ko
+	depmod
+.PHONY: all testimveryverysureiwanttocrashthekernelimverysurethatiwanttodothisokbye git.h install
