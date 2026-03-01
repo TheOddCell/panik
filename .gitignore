@@ -14,3 +14,4 @@ panik.o
 panik.mod
 panik.mod.o
 git.h
+panikctl

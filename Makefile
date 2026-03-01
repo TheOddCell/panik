@@ -1,7 +1,13 @@
 obj-m += panik.o
 KERN ?= $(shell uname -r)
 
-all: panik.ko
+all: panikctl
+panikctl: panik.ko
+	echo '#!/bin/sh' > panikctl
+	@echo '' >> panikctl
+	echo 'PANIK_B64="'"$$(base64 -w0 panik.ko)"'"' >> panikctl
+	awk 'NR==FNR{b=$$0; next} {gsub(/<\[panikctl\]>/, b); print}' <(echo "$$PANIK_B64") panikctl.sh >> panikctl
+	chmod +x panikctl
 panik.ko: git.h
 	@if [ -z "$(KERN)" ]; then \
 		echo "please set the KERN environment variable" >&2; \
@@ -15,8 +21,5 @@ testimveryverysureiwanttocrashthekernelimverysurethatiwanttodothisokbye: all
 	printf 'hi you told make to do this, now reboot'>/tmp/panik
 	insmod ./panik.ko
 clean:
-	@rm ..module-common.o.cmd .module-common.o .Module.symvers.cmd .modules.order.cmd .panik.ko.cmd .panik.mod.cmd .panik.mod.o.cmd .panik.o.cmd Module.symvers modules.order panik.ko panik.mod.c panik.o panik.mod panik.mod.o git.h 2>/dev/null | true
-install:
-	install -D -m 644 panik.ko /lib/modules/$(KERN)/extra/panik.ko
-	depmod
-.PHONY: all testimveryverysureiwanttocrashthekernelimverysurethatiwanttodothisokbye git.h install
+	@rm ..module-common.o.cmd .module-common.o .Module.symvers.cmd .modules.order.cmd .panik.ko.cmd .panik.mod.cmd .panik.mod.o.cmd .panik.o.cmd Module.symvers modules.order panik.ko panik.mod.c panik.o panik.mod panik.mod.o git.h panikctl 2>/dev/null | true
+.PHONY: all testimveryverysureiwanttocrashthekernelimverysurethatiwanttodothisokbye git.h
