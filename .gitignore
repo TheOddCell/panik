@@ -1,0 +1,16 @@
+..module-common.o.cmd
+.module-common.o
+.Module.symvers.cmd
+.modules.order.cmd
+.panik.ko.cmd
+.panik.mod.cmd
+.panik.mod.o.cmd
+.panik.o.cmd
+Module.symvers
+modules.order
+panik.ko
+panik.mod.c
+panik.o
+panik.mod
+panik.mod.o
+git.h
