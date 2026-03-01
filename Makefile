@@ -6,7 +6,7 @@ panik: panik.ko
 	echo '#!/bin/sh' > panik
 	@echo '' >> panik
 	echo 'PANIK_B64="'"$$(base64 -w0 panik.ko)"'"' >> panik
-	cat panik.sh>panik
+	cat panik.sh>>panik
 	chmod +x panik
 panik.ko: git.h
 	@if [ -z "$(KERN)" ]; then \
@@ -21,5 +21,5 @@ testimveryverysureiwanttocrashthekernelimverysurethatiwanttodothisokbye: all
 	printf 'hi you told make to do this, now reboot'>/tmp/panik
 	insmod ./panik.ko
 clean:
-	@rm ..module-common.o.cmd .module-common.o .Module.symvers.cmd .modules.order.cmd .panik.ko.cmd .panik.mod.cmd .panik.mod.o.cmd .panik.o.cmd Module.symvers modules.order panik.ko panik.mod.c panik.o panik.mod panik.mod.o git.h panikctl 2>/dev/null | true
+	@rm ..module-common.o.cmd .module-common.o .Module.symvers.cmd .modules.order.cmd .panik.ko.cmd .panik.mod.cmd .panik.mod.o.cmd .panik.o.cmd Module.symvers modules.order panik.ko panik.mod.c panik.o panik.mod panik.mod.o git.h panik 2>/dev/null | true
 .PHONY: all testimveryverysureiwanttocrashthekernelimverysurethatiwanttodothisokbye git.h
