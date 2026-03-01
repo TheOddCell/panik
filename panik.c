@@ -53,7 +53,7 @@ static int __init panik_init(void)
 }
 
 module_init(panik_init);
-MODULE_LICENSE("GPLv2");
+MODULE_LICENSE("GPL");
 MODULE_AUTHOR("TheOddCell <me@oddcell.ca>");
 MODULE_DESCRIPTION("I mispronounced KERNEL PANIC");
 MODULE_VERSION(GIT_VERSION);
