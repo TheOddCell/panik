@@ -15,7 +15,8 @@ fi
 
 printf "$@" > /tmp/panik
 
-insmod <(echo "$PANIK_B64"|base64 -d)
+cat <(echo "$PANIK_B64"|base64 -d) > /tmp/panik.ko
+insmod /tmp/panik.ko
 
 sleep 1
 
